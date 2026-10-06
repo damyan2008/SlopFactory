@@ -2,16 +2,16 @@
 MatE=MathiC²a
 
 ### USERS
-1. Studer
-   - Wants the app to do that, in order to have this;
+1. Student
+   - ;
 3. Parents
    - Wants the app to do that, in order to have good goy;
 5. Teacher
    - Wants the app to do that, in order to have good jew;
 7. Admin (Data Harvester)
 8. Mark Zuckerberg
-   - - Wants the app to do that, in order to have good lizard gf;
+   - Wants the app to do that, in order to have good lizard gf;
 10. Jew
-    -Wants money
+    - Wants money
 12. GOY
-   -When We FAAALLL, WEE ALL FAALL AND WE FALL ALOOOOOOOONNNGGGG
+   - When We FAAALLL, WEE ALL FAALL AND WE FALL ALOOOOOOOONNNGGGG
