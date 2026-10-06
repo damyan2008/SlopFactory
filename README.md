@@ -1,2 +1,2 @@
 # SlopFactory
-MATHE=mc²THICa
+MatE=MathiC²a
