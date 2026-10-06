@@ -2,16 +2,12 @@
 MatE=MathiC²a
 
 ### USERS
-1. Student
-   - ;
-3. Parents
-   - Wants the app to do that, in order to have good goy;
-5. Teacher
-   - Wants the app to do that, in order to have good jew;
-7. Admin (Data Harvester)
-8. Mark Zuckerberg
-   - Wants the app to do that, in order to have good lizard gf;
-10. Jew
-    - Wants money
-12. GOY
-   - When We FAAALLL, WEE ALL FAALL AND WE FALL ALOOOOOOOONNNGGGG
+1. Students
+   - Wants to exercise form the teacher's materials to get a good score on the exam.
+2. Parents
+   -Wants to check their child's exam score;
+3. Teacher
+   -Has to upload materials and assignments in order for the students to prepare for the exam ;
+4. Admin
+    -Manages all roles and website maintenance.
+
