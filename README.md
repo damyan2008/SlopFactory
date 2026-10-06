@@ -3,15 +3,8 @@ MatE=MathiC²a
 
 ### USERS
 1. Studer
-   - Wants the app to do that, in order to have this;
-3. Parents
-   - Wants the app to do that, in order to have good goy;
-5. Teacher
-   - Wants the app to do that, in order to have good jew;
-7. Admin (Data Harvester)
-8. Mark Zuckerberg
-   - - Wants the app to do that, in order to have good lizard gf;
-10. Jew
-    -Wants money
-12. GOY
-   -When We FAAALLL, WEE ALL FAALL AND WE FALL ALOOOOOOOONNNGGGG
+   - Want the app to provide relevant and quality tests and guidance, in order to properly prepare for the DZI;
+2. Parents
+   - Want the app to be easy to understand and have result scores visible, in order to know how well their children are performing and understand the app intuitively;
+3. Teachers
+   - Want the app to be easy to navigate and have result scores visible, in order to check many students' scores without wasting time;
