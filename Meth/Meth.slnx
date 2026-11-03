@@ -1,3 +1,4 @@
 <Solution>
   <Project Path="Meth/Meth.csproj" />
+  <Project Path="Meth.Tests/Meth.Tests.csproj" />
 </Solution>

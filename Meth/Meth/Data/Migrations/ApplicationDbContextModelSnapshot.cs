@@ -22,6 +22,164 @@ namespace Meth.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Meth.Models.Question", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AnswerConfig")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<short>("ContractVersion")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint")
+                        .HasDefaultValue((short)1);
+
+                    b.Property<int>("Difficulty")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Hints")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValue("[]");
+
+                    b.Property<int>("MaxPoints")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Solution")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
+
+                    b.Property<int>("TopicId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TopicId", "Difficulty");
+
+                    b.ToTable("Questions", t =>
+                        {
+                            t.HasCheckConstraint("CK_Questions_AnswerConfig_Json", "CASE WHEN ISJSON([AnswerConfig]) <> 1 THEN 0 WHEN LEFT(LTRIM([AnswerConfig]), 1) <> N'{' THEN 0 ELSE 1 END = 1");
+
+                            t.HasCheckConstraint("CK_Questions_ContractVersion", "[ContractVersion] >= 1");
+
+                            t.HasCheckConstraint("CK_Questions_Difficulty", "[Difficulty] BETWEEN 1 AND 3");
+
+                            t.HasCheckConstraint("CK_Questions_Hints_Json", "CASE WHEN ISJSON([Hints]) <> 1 THEN 0 WHEN LEFT(LTRIM([Hints]), 1) <> N'[' THEN 0 WHEN JSON_VALUE([Hints], '$[3]') IS NOT NULL THEN 0 ELSE 1 END = 1");
+
+                            t.HasCheckConstraint("CK_Questions_MaxPoints", "[MaxPoints] BETWEEN 1 AND 20");
+
+                            t.HasCheckConstraint("CK_Questions_Solution_Json", "CASE WHEN ISJSON([Solution]) <> 1 THEN 0 WHEN LEFT(LTRIM([Solution]), 1) <> N'[' THEN 0 WHEN JSON_VALUE([Solution], '$[0]') IS NULL THEN 0 WHEN JSON_VALUE([Solution], '$[10]') IS NOT NULL THEN 0 ELSE 1 END = 1");
+
+                            t.HasCheckConstraint("CK_Questions_Text_NotBlank", "LEN([Text]) > 0");
+
+                            t.HasCheckConstraint("CK_Questions_Type", "[Type] IN (N'SingleChoice', N'Numeric', N'ShortText')");
+                        });
+                });
+
+            modelBuilder.Entity("Meth.Models.Test", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAtUtc")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("SYSUTCDATETIME()");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
+
+                    b.Property<int>("Difficulty")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsPublished")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsPublished", "Difficulty");
+
+                    b.ToTable("Tests", t =>
+                        {
+                            t.HasCheckConstraint("CK_Tests_Difficulty", "[Difficulty] BETWEEN 1 AND 3");
+
+                            t.HasCheckConstraint("CK_Tests_Title_NotBlank", "LEN([Title]) > 0");
+                        });
+                });
+
+            modelBuilder.Entity("Meth.Models.TestQuestion", b =>
+                {
+                    b.Property<int>("TestId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("QuestionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Position")
+                        .HasColumnType("int");
+
+                    b.HasKey("TestId", "QuestionId");
+
+                    b.HasIndex("QuestionId");
+
+                    b.HasIndex("TestId", "Position")
+                        .IsUnique();
+
+                    b.ToTable("TestQuestions", t =>
+                        {
+                            t.HasCheckConstraint("CK_TestQuestions_Position", "[Position] >= 1");
+                        });
+                });
+
+            modelBuilder.Entity("Meth.Models.Topic", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Topics", t =>
+                        {
+                            t.HasCheckConstraint("CK_Topics_Name_NotBlank", "LEN([Name]) > 0");
+                        });
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -224,6 +382,36 @@ namespace Meth.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Meth.Models.Question", b =>
+                {
+                    b.HasOne("Meth.Models.Topic", "Topic")
+                        .WithMany("Questions")
+                        .HasForeignKey("TopicId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Topic");
+                });
+
+            modelBuilder.Entity("Meth.Models.TestQuestion", b =>
+                {
+                    b.HasOne("Meth.Models.Question", "Question")
+                        .WithMany("TestQuestions")
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Meth.Models.Test", "Test")
+                        .WithMany("Questions")
+                        .HasForeignKey("TestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Question");
+
+                    b.Navigation("Test");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -273,6 +461,21 @@ namespace Meth.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Meth.Models.Question", b =>
+                {
+                    b.Navigation("TestQuestions");
+                });
+
+            modelBuilder.Entity("Meth.Models.Test", b =>
+                {
+                    b.Navigation("Questions");
+                });
+
+            modelBuilder.Entity("Meth.Models.Topic", b =>
+                {
+                    b.Navigation("Questions");
                 });
 #pragma warning restore 612, 618
         }
