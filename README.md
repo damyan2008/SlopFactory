@@ -16,3 +16,16 @@ MatE=MathiC²a
 4. Admin -Manages all roles and website maintenance.
 
 >>>>>> main
+
+
+
+About Roles And Shit
+- Student role:
+  * Assigned at register
+  * Basic functionality permissions
+- Teacher Role:
+  * Granted by admin OR other teachers
+  * Assigned to classes of students; can view and manage their results
+- Admin Role:
+  * Granted by other admins
+  * Can Grant or revoke any role and view all accounts' data
