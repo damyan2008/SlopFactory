@@ -1,5 +1,6 @@
 ﻿using Meth.Models;
 using Meth.Validation;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,6 +16,16 @@ namespace Meth.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);   // Identity tables
+
+            // Match the existing Identity schema even when the context is created without AddDefaultIdentity.
+            var logins = builder.Entity<IdentityUserLogin<string>>();
+            logins.Property(login => login.LoginProvider).HasMaxLength(128);
+            logins.Property(login => login.ProviderKey).HasMaxLength(128);
+
+            var tokens = builder.Entity<IdentityUserToken<string>>();
+            tokens.Property(token => token.LoginProvider).HasMaxLength(128);
+            tokens.Property(token => token.Name).HasMaxLength(128);
+
             builder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
         }
 

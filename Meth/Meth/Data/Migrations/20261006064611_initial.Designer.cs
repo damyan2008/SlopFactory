@@ -13,7 +13,7 @@ namespace Meth.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20261006064611_initial")]
-    partial class initial
+    partial class Initial064611
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
