@@ -29,3 +29,4 @@ About Roles And Shit
 - Admin Role:
   * Granted by other admins
   * Can Grant or revoke any role and view all accounts' data
+* Logged out users may complete tests, but their results won't be recorded.
